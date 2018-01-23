@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\Comment;
 
 class PostController extends Controller
 {
@@ -38,7 +39,21 @@ class PostController extends Controller
             'content' => 'required|string|min:10'
         ]);
 
-        $post = Post::create(request(['title', 'content']));
+        $user_id = \Auth::id();
+        $params = array_merge(request(['title','content']),compact('user_id'));
+//        $test = [
+//            [
+//                'title' => 'title1',
+//                'content' => 'content1',
+//                'user_id' => 1,
+//            ],
+//            [
+//                'title' => 'title2',
+//                'content' => 'content2',
+//                'user_id' => 1,
+//            ]
+//        ];
+        $post = Post::create($params);
 
         return redirect('/posts');
     }
@@ -56,6 +71,8 @@ class PostController extends Controller
             'content' => 'required|string|min:10',
         ]);
 
+        //权限判断
+        $this->authorize($post);
 
         $post->update($request->only('title','content'));
 
@@ -76,8 +93,25 @@ class PostController extends Controller
     public function imageUpload(Request $request)
     {
 
-        dd($request->all());
         $path = $request->file('wangEditorH5File')->storePublicly(md5(time()));
         return asset('storage/'. $path);
+    }
+
+    //提交评论
+    public function comment(Post $post)
+    {
+        //验证
+        $this->validate(request(),[
+            'content' => 'required|min:3'
+        ]);
+
+        //逻辑
+        $comment = new Comment();
+        $comment->user_id = \Auth::id();
+        $comment->content = request('content');
+        $post->comments()->save($comment);
+
+        //返回
+        return back();
     }
 }

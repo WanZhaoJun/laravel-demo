@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+    //HasApiTokens 用于passport的一个Trait
     use HasApiTokens, Notifiable;
 
     /**
