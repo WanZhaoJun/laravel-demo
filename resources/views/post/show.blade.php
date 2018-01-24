@@ -32,18 +32,14 @@
 
                 <!-- List group -->
                 <ul class="list-group">
+                    @foreach($post->comments as $commet)
                     <li class="list-group-item">
-                        <h5>2017-05-28 10:15:08 by Kassandra Ankunding2</h5>
+                        <h5>{{ $commet->created_at }} by {{ $commet->user->name }}</h5>
                         <div>
-                            这是第一个评论这是第一个评论这是第一个评论这是第一个评论这是第一个评论这是第一个评论这是第一个评论这是第一个评论这是第一个评论
+                            {{ $commet->content }}
                         </div>
                     </li>
-                    <li class="list-group-item">
-                        <h5>2017-05-28 10:15:08 by Kassandra Ankunding2</h5>
-                        <div>
-                            这是第一个评论这是第一个评论这是第一个评论这是第一个评论这是第一个评论这是第一个评论这是第一个评论这是第一个评论这是第一个评论
-                        </div>
-                    </li>
+                    @endforeach
                 </ul>
             </div>
 

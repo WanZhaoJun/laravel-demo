@@ -15,7 +15,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('created_at', 'desc')->paginate(6);
+        $posts = Post::orderBy('created_at', 'desc')->withCount('comments')->paginate(6);
         
         return view('post/index', compact('posts'));
     }
@@ -23,6 +23,7 @@ class PostController extends Controller
     //文章详情
     public function show(Post $post)
     {
+        $post->load('comments');
         return view('post/show', compact('post'));
     }
 
@@ -41,18 +42,7 @@ class PostController extends Controller
 
         $user_id = \Auth::id();
         $params = array_merge(request(['title','content']),compact('user_id'));
-//        $test = [
-//            [
-//                'title' => 'title1',
-//                'content' => 'content1',
-//                'user_id' => 1,
-//            ],
-//            [
-//                'title' => 'title2',
-//                'content' => 'content2',
-//                'user_id' => 1,
-//            ]
-//        ];
+
         $post = Post::create($params);
 
         return redirect('/posts');
