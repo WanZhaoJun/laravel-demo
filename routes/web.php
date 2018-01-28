@@ -33,6 +33,8 @@ Route::get('/posts', '\App\Http\Controllers\PostController@index');
 //创建文章
 Route::get('/posts/create', '\App\Http\Controllers\PostController@create');
 Route::post('/posts', '\App\Http\Controllers\PostController@store');
+//文章搜索
+Route::get('posts/search','\App\Http\Controllers\PostController@search');
 //文章详情
 Route::get('posts/{post}', '\App\Http\Controllers\PostController@show');
 //修改文章
