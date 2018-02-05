@@ -11,6 +11,11 @@
 |
 */
 
+
+Route::get('/',function () {
+   return view('welcome');
+});
+
 //用户模块
 //注册页面
 Route::get('register','\App\Http\Controllers\RegisterController@index');
