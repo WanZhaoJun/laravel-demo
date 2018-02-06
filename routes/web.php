@@ -55,6 +55,10 @@ Route::post('posts/{post}/comment','\App\Http\Controllers\PostController@comment
 Route::get('posts/{post}/zan','PostController@zan');
 Route::get('posts/{post}/unzan','PostController@unzan');
 
+// 个人中心
+Route::get('user/{user}', 'UserController@show');
+Route::post('user/{user}/fan', 'UserController@fan');
+Route::post('user/{user}/unfan', 'UserController@unfan');
 
 //Auth::routes();
 
