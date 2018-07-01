@@ -2,34 +2,34 @@
 
 namespace App;
 
-//use Laravel\Scout\Searchable;
+use Laravel\Scout\Searchable;
 
 class Post extends Model
 {
 //    TODO search 有问题,影响到了文章基本的增删改
-//    use Searchable;
+    use Searchable;
     /**
      * Get the index name for the model.
      *
      * @return string
      */
-//    public function searchableAs()
-//    {
-//        return 'post';
-//    }
+    public function searchableAs()
+    {
+        return 'post';
+    }
 
     /**
      * Get the indexable data array for the model.
      *
      * @return array
      */
-//    public function toSearchableArray()
-//    {
-//        return [
-//            'title' => $this->title,
-//            'content' => $this->content,
-//        ];
-//    }
+    public function toSearchableArray()
+    {
+        return [
+            'title' => $this->title,
+            'content' => $this->content,
+        ];
+    }
 
     // 关联用户
     public function user()
